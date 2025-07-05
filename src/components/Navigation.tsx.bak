@@ -1,0 +1,346 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronDown, Phone, Mail } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+const Navigation = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const treatmentMenuItems = [
+    { name: 'Laser Dentistry', path: '/treatments/laser-dentistry' },
+    { name: 'Dental Filling', path: '/treatments/dental-filling' },
+    { name: 'Invisible Aligners', path: '/treatments/invisible-aligners' },
+    { name: 'Braces & Aligners', path: '/treatments/braces-aligners' },
+    { name: 'Wisdom Teeth Removal', path: '/treatments/wisdom-teeth-removal' },
+    { name: 'Dental Implants', path: '/treatments/dental-implants' },
+    { name: 'Dental Crowns', path: '/treatments/dental-crowns' },
+    { name: 'Advanced Gum Treatments', path: '/treatments/advanced-gum-treatments' },
+    { name: 'Root Canal', path: '/treatments/root-canal' },
+    { name: 'Invisalign Aligners', path: '/treatments/invisalign-aligners' },
+  ];
+
+  const branchMenuItems = [
+    { name: 'Kondapur', path: '/branches/kondapur' },
+    { name: 'Kukatpally (KBHP Colony)', path: '/branches/kukatpally' },
+    { name: 'Banjara Hills', path: '/branches/banjara-hills' },
+    { name: 'Chandanagar', path: '/branches/chandanagar' },
+    { name: 'Nallagandla', path: '/branches/nallagandla' },
+  ];
+
+  const safetyMenuItems = [
+    { name: 'All Safety Measures', path: '/patient-safety/all' },
+    { name: 'Center Health Care', path: '/patient-safety/center-health-care' },
+    { name: 'Clarivo Standards', path: '/patient-safety/clarivo' },
+    { name: 'Haru Theme Protocol', path: '/patient-safety/haru-theme' },
+  ];
+
+  return (
+    <>
+      {/* Top Bar */}
+      <div className="bg-primary-600 text-white py-2 px-4 text-sm">
+        <div className="container mx-auto flex justify-between items-center">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <Phone className="w-4 h-4" />
+              <span>+91 9876543210</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Mail className="w-4 h-4" />
+              <span>info@galaxydentalcare.in</span>
+            </div>
+          </div>
+          <div className="hidden md:block">
+            <span>Follow us on social media for updates!</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation */}
+      <nav className={cn(
+        "sticky top-0 z-50 transition-all duration-300 text-white",
+        scrolled ? "bg-white/10 backdrop-blur-md shadow-lg" : "bg-transparent"
+      )}>
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xl">G</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Galaxy</h1>
+                <p className="text-sm text-white/80 -mt-1">Dental Care</p>
+              </div>
+            </Link>
+
+            {/* Desktop Menu */}
+            <div className="hidden lg:flex items-center space-x-8">
+              <Link 
+                to="/" 
+                className={cn(
+                  "font-medium transition-colors hover:text-white",
+                  location.pathname === "/" ? "text-white font-semibold" : "text-white/90"
+                )}
+              >
+                Home
+              </Link>
+              
+              <Link 
+                to="/about" 
+                className={cn(
+                  "font-medium transition-colors hover:text-white",
+                  location.pathname === "/about" ? "text-white font-semibold" : "text-white/90"
+                )}
+              >
+                About Us
+              </Link>
+
+              {/* Treatments Dropdown */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('treatments')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className="flex items-center space-x-1 font-medium text-white/90 hover:text-white transition-colors">
+                  <span>Treatments</span>
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                {activeDropdown === 'treatments' && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-white/90 backdrop-blur-md rounded-lg shadow-xl border border-white/10 animate-fade-in">
+                    <div className="py-2">
+                      {treatmentMenuItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className="block px-4 py-2 text-sm text-gray-800 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Branches Dropdown */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('branches')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className="flex items-center space-x-1 font-medium text-white/90 hover:text-white transition-colors">
+                  <span>Our Branches</span>
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                {activeDropdown === 'branches' && (
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white/90 backdrop-blur-md rounded-lg shadow-xl border border-white/10 animate-fade-in">
+                    <div className="py-2">
+                      {branchMenuItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className="block px-4 py-2 text-sm text-gray-800 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Patient Safety Dropdown */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('safety')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className="flex items-center space-x-1 font-medium text-white/90 hover:text-white transition-colors">
+                  <span>Patient Safety</span>
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                {activeDropdown === 'safety' && (
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white/90 backdrop-blur-md rounded-lg shadow-xl border border-white/10 animate-fade-in">
+                    <div className="py-2">
+                      {safetyMenuItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className="block px-4 py-2 text-sm text-gray-800 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <Link 
+                to="/blog" 
+                className={cn(
+                  "font-medium transition-colors hover:text-white",
+                  location.pathname === "/blog" ? "text-white font-semibold" : "text-white/90"
+                )}
+              >
+                Blog
+              </Link>
+
+              <Link 
+                to="/contact" 
+                className="bg-white text-primary-600 px-6 py-2 rounded-full hover:bg-primary-50 transition-colors font-medium"
+              >
+                Contact Us
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2 rounded-md hover:bg-white/10 transition-colors text-white"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={cn(
+            "lg:hidden bg-white/90 backdrop-blur-md rounded-lg shadow-xl mt-2 overflow-hidden transition-all duration-300",
+            isOpen ? 'max-h-screen py-4' : 'max-h-0 py-0'
+          )}>
+            <div className="px-4 space-y-4">
+              <Link 
+                to="/" 
+                className={cn(
+                  "block font-medium transition-colors",
+                  location.pathname === "/" ? "text-primary-600 font-semibold" : "text-gray-700 hover:text-primary-600"
+                )}
+                onClick={() => setIsOpen(false)}
+              >
+                Home
+              </Link>
+              
+              <Link 
+                to="/about" 
+                className={cn(
+                  "block font-medium transition-colors",
+                  location.pathname === "/about" ? "text-primary-600 font-semibold" : "text-gray-700 hover:text-primary-600"
+                )}
+                onClick={() => setIsOpen(false)}
+              >
+                About Us
+              </Link>
+
+              {/* Mobile Treatments */}
+              <div>
+                <button 
+                  onClick={() => setActiveDropdown(activeDropdown === 'treatments' ? null : 'treatments')}
+                  className="flex items-center justify-between w-full font-medium text-gray-700 hover:text-primary-600 transition-colors"
+                >
+                  <span>Treatments</span>
+                  <ChevronDown className={cn("w-4 h-4 transition-transform", activeDropdown === 'treatments' && "rotate-180")} />
+                </button>
+                {activeDropdown === 'treatments' && (
+                  <div className="mt-2 pl-4 space-y-2">
+                    {treatmentMenuItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="block text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Branches */}
+              <div>
+                <button 
+                  onClick={() => setActiveDropdown(activeDropdown === 'branches' ? null : 'branches')}
+                  className="flex items-center justify-between w-full font-medium text-gray-700 hover:text-primary-600 transition-colors"
+                >
+                  <span>Our Branches</span>
+                  <ChevronDown className={cn("w-4 h-4 transition-transform", activeDropdown === 'branches' && "rotate-180")} />
+                </button>
+                {activeDropdown === 'branches' && (
+                  <div className="mt-2 pl-4 space-y-2">
+                    {branchMenuItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="block text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Patient Safety */}
+              <div>
+                <button 
+                  onClick={() => setActiveDropdown(activeDropdown === 'safety' ? null : 'safety')}
+                  className="flex items-center justify-between w-full font-medium text-gray-700 hover:text-primary-600 transition-colors"
+                >
+                  <span>Patient Safety</span>
+                  <ChevronDown className={cn("w-4 h-4 transition-transform", activeDropdown === 'safety' && "rotate-180")} />
+                </button>
+                {activeDropdown === 'safety' && (
+                  <div className="mt-2 pl-4 space-y-2">
+                    {safetyMenuItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="block text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <Link 
+                to="/blog" 
+                className={cn(
+                  "block font-medium transition-colors",
+                  location.pathname === "/blog" ? "text-primary-600 font-semibold" : "text-gray-700 hover:text-primary-600"
+                )}
+                onClick={() => setIsOpen(false)}
+              >
+                Blog
+              </Link>
+              
+              <Link 
+                to="/contact" 
+                className="block bg-primary-600 text-white px-6 py-2 rounded-full hover:bg-primary-700 transition-colors font-medium text-center"
+                onClick={() => setIsOpen(false)}
+              >
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default Navigation;
