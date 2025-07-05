@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Branches from "./pages/Branches";
-import PatientSafety from "./pages/PatientSafety";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 
@@ -32,7 +31,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/branches" element={<Branches />} />
-          <Route path="/patient-safety" element={<PatientSafety />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           
@@ -47,7 +45,6 @@ const App = () => (
           <Route path="/appointment" element={<Appointment />} />
           
           {/* Patient Safety Route */}
-          <Route path="/patient-safety" element={<PatientSafety />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

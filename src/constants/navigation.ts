@@ -14,10 +14,6 @@ export const NAV_ITEMS: NavItem[] = [
     path: '/blog',
   },
   {
-    name: 'Patient Safety',
-    path: '/patient-safety'
-  },
-  {
     name: 'Contact',
     path: '/contact',
   }

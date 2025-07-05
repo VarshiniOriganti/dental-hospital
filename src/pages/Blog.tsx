@@ -69,42 +69,85 @@ const Blog = () => {
       date: "February 28, 2024",
       readTime: "5 min read",
       category: "Nutrition"
-    }
+    },
   ];
 
-  // Available categories for filtering - Implants removed
-  const categories = ["All", "Preventive Care", "Orthodontics", "Oral Hygiene", "Technology", "Nutrition"];
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const filteredPosts = activeFilter === "All" 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === activeFilter);
+  // Show all blog posts
+  const filteredPosts = blogPosts;
 
   return (
     <Layout>
-      {/* Hero Section with Enhanced Violet Overlay */}
-      <section className="relative pt-40 pb-24 -mt-20 bg-cover bg-center bg-no-repeat" 
-               style={{
-                 backgroundImage: `
-                   linear-gradient(to right, rgb(76, 29, 149, 0.9), rgb(67, 56, 202, 0.8), rgb(109, 40, 217, 0.7)),
-
-                   url('https://png.pngtree.com/background/20230617/original/pngtree-vortex-of-dental-care-3d-render-of-teeth-with-and-without-picture-image_3696469.jpg')
-                 `,
-                 backgroundBlendMode: 'multiply',
-                 backgroundSize: 'cover',
-                 backgroundPosition: 'center',
-               }}>
-        <div className="absolute inset-0 -z-10"></div>
-        <div className="container mx-auto px-4 text-center pt-16">
+      {/* Hero Section with Animated Background */}
+      <section className="relative pt-40 pb-24 -mt-20 overflow-hidden">
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `
+              linear-gradient(
+                to right,
+                rgba(60, 40, 130, 0.7) 0%,
+                rgba(80, 50, 150, 0.6) 50%,
+                rgba(60, 40, 130, 0.7) 100%
+              ),
+              url('https://png.pngtree.com/background/20230617/original/pngtree-vortex-of-dental-care-3d-render-of-teeth-with-and-without-picture-image_3696469.jpg')
+            `,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            animation: 'float 15s ease-in-out infinite',
+            filter: 'brightness(1.1) contrast(1.1)',
+          }}
+        >
+          <style>{
+            `@keyframes float {
+              0% {
+                transform: scale(1.1) translateY(-20px) translateX(-20px);
+              }
+              25% {
+                transform: scale(1.15) translateY(20px) translateX(20px);
+              }
+              50% {
+                transform: scale(1.2) translateY(0) translateX(0);
+              }
+              75% {
+                transform: scale(1.15) translateY(20px) translateX(-20px);
+              }
+              100% {
+                transform: scale(1.1) translateY(-20px) translateX(-20px);
+              }
+            }
+            
+            @media (prefers-reduced-motion: reduce) {
+              .absolute {
+                animation: none !important;
+              }
+            }`
+          }</style>
+        </div>
+        <div className="container mx-auto px-4 text-center pt-16 relative z-10">
           <ScrollAnimation direction="up">
-            <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
+            <motion.h1 
+              className="text-5xl font-bold text-white mb-6 drop-shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              style={{ 
+                textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'
+              }}
+            >
               Dental Health Blog
-            </h1>
+            </motion.h1>
           </ScrollAnimation>
           <ScrollAnimation direction="up" delay={0.2}>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
+            <motion.p 
+              className="text-xl text-white/95 max-w-3xl mx-auto mb-8 leading-relaxed font-medium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
+            >
               Stay updated with the latest dental care tips, treatment options, and oral health advice from our experts.
-            </p>
+            </motion.p>
           </ScrollAnimation>
         </div>
       </section>
@@ -153,34 +196,21 @@ const Blog = () => {
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <StaggerContainer className="flex flex-wrap justify-center gap-3 mb-12">
-            {categories.map((category, index) => (
-              <StaggerItem key={category} delay={index * 0.1}>
-                <button
-                  onClick={() => setActiveFilter(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activeFilter === category
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {category}
-                </button>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
+
 
       {/* Latest Articles */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        </div>
+        <div className="container mx-auto px-4 relative">
           <ScrollAnimation>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Latest Articles</h2>
+            <div className="text-center mb-16">
+              <div className="inline-block bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text">
+                <h2 className="text-4xl md:text-5xl font-bold text-transparent mb-4">Latest Articles</h2>
+              </div>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary-400 to-secondary-500 mx-auto mb-6 rounded-full"></div>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                 Discover our collection of informative articles on dental health, treatments, and oral care tips.
               </p>
@@ -194,40 +224,67 @@ const Blog = () => {
                 delay={index * 0.1}
                 className="h-full"
               >
-                <Card className="overflow-hidden group h-full flex flex-col">
-                  <div className="h-48 overflow-hidden">
-                    <motion.img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    />
-                  </div>
-                  <div className="p-6 flex-1 flex flex-col">
-                    <div className="flex items-center text-sm text-gray-500 mb-3">
-                      <span className="text-primary-600 font-medium">{post.category}</span>
-                      <span className="mx-2">•</span>
-                      <span>{post.date}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3 flex-grow">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between mt-auto">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <User className="w-4 h-4 mr-1" />
-                        <span>{post.author}</span>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="h-full"
+                >
+                  <div className="relative h-full group">
+                    {/* Glow effect on hover */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary-400 to-secondary-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-md transition-all duration-500"></div>
+                    
+                    <Card className="relative h-full flex flex-col bg-white/80 backdrop-blur-sm border-0 shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden hover:-translate-y-1">
+                      <div className="h-48 overflow-hidden relative">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <motion.img 
+                          src={post.image} 
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.7, ease: "easeOut" }}
+                        />
+                        <div className="absolute top-4 right-4 z-20">
+                          <span className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+                            {post.category}
+                          </span>
+                        </div>
                       </div>
-                      <span className="flex items-center text-sm text-gray-500">
-                        <Clock className="w-4 h-4 mr-1" />
-                        {post.readTime}
-                      </span>
-                    </div>
+                      <div className="p-6 flex-1 flex flex-col">
+                        <div className="flex items-center text-sm text-gray-500 mb-3">
+                          <span className="text-sm text-gray-500">{post.date}</span>
+                          <span className="mx-2">•</span>
+                          <span className="flex items-center text-sm text-gray-500">
+                            <Clock className="w-4 h-4 mr-1" />
+                            {post.readTime}
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:bg-gradient-to-r group-hover:from-primary-600 group-hover:to-secondary-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-500">
+                          {post.title}
+                        </h3>
+                        <p className="text-gray-600 mb-4 line-clamp-3 flex-grow group-hover:text-gray-700 transition-colors duration-300">
+                          {post.excerpt}
+                        </p>
+                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                          <div className="flex items-center">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 flex items-center justify-center mr-2">
+                              <User className="w-4 h-4 text-primary-600" />
+                            </div>
+                            <span className="text-sm font-medium text-gray-700">{post.author}</span>
+                          </div>
+                          <motion.div 
+                            className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 flex items-center justify-center text-primary-600 group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-secondary-500 group-hover:text-white transition-all duration-300"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <ArrowRight className="w-4 h-4" />
+                          </motion.div>
+                        </div>
+                      </div>
+                    </Card>
                   </div>
-                </Card>
+                </motion.div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -235,17 +292,41 @@ const Blog = () => {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-20 bg-primary-600">
-        <div className="container mx-auto px-4 text-center">
-          <ScrollAnimation>
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl font-bold text-white mb-6">Stay Updated</h2>
-              <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Subscribe to our newsletter and get the latest dental health tips, 
-                treatment updates, and exclusive offers delivered to your inbox.
-              </p>
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 opacity-95"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        
+        <div className="container mx-auto px-4 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <div className="inline-block bg-gradient-to-r from-white to-gray-200 bg-clip-text mb-2">
+              <h2 className="text-4xl md:text-5xl font-bold text-transparent">Stay Updated</h2>
             </div>
-          </ScrollAnimation>
+            <div className="w-24 h-1 bg-gradient-to-r from-white to-secondary-200 mx-auto mb-8 rounded-full"></div>
+            <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">
+              Subscribe to our newsletter and get the latest dental health tips, 
+              treatment updates, and exclusive offers delivered to your inbox.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent backdrop-blur-sm"
+              />
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-3 bg-white text-primary-700 font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                Subscribe
+              </motion.button>
+            </div>
+          </motion.div>
         </div>
       </section>
     </Layout>

@@ -53,47 +53,94 @@ const AppointmentPage = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative pt-40 pb-24 -mt-20 bg-cover bg-center bg-no-repeat" 
-               style={{
-                 backgroundImage: `
-                   linear-gradient(to right, rgb(76, 29, 149, 0.9), rgb(67, 56, 202, 0.8), rgb(109, 40, 217, 0.7)),
-                   url('https://officechai.com/wp-content/uploads/2021/09/Optimized-appointment-.jpg')
-                 `,
-                 backgroundBlendMode: 'multiply',
-                 backgroundSize: 'cover',
-                 backgroundPosition: 'center',
-               }}>
-        <div className="absolute inset-0 -z-10"></div>
-        <div className="container mx-auto px-4 text-center pt-16">
-          <ScrollAnimation>
-            <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
-              Book an Appointment
-            </h1>
-          </ScrollAnimation>
-          <ScrollAnimation delay={0.2}>
-            <p className="text-xl text-white/95 max-w-3xl mx-auto leading-relaxed">
-              Schedule your visit with our dental experts. We're here to give you the best care possible.
-            </p>
-          </ScrollAnimation>
-          <ScrollAnimation delay={0.4}>
-            <motion.div 
-              className="mt-8"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+      {/* Hero Section with Animated Background */}
+      <section className="relative pt-40 pb-24 -mt-20 overflow-hidden">
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `
+              linear-gradient(
+                to right,
+                rgba(60, 40, 130, 0.7) 0%,
+                rgba(80, 50, 150, 0.6) 50%,
+                rgba(60, 40, 130, 0.7) 100%
+              ),
+              url('https://officechai.com/wp-content/uploads/2021/09/Optimized-appointment-.jpg')
+            `,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            animation: 'float 15s ease-in-out infinite',
+            filter: 'brightness(1.1) contrast(1.1)',
+          }}
+        >
+          <style>{
+            `@keyframes float {
+              0% {
+                transform: scale(1.1) translateY(-20px) translateX(-20px);
+              }
+              25% {
+                transform: scale(1.15) translateY(20px) translateX(20px);
+              }
+              50% {
+                transform: scale(1.2) translateY(0) translateX(0);
+              }
+              75% {
+                transform: scale(1.15) translateY(20px) translateX(-20px);
+              }
+              100% {
+                transform: scale(1.1) translateY(-20px) translateX(-20px);
+              }
+            }
+            
+            @media (prefers-reduced-motion: reduce) {
+              .absolute {
+                animation: none !important;
+              }
+            }`
+          }</style>
+        </div>
+        
+        <div className="container mx-auto px-4 text-center pt-16 relative z-10">
+          <motion.h1 
+            className="text-5xl font-bold text-white mb-6 drop-shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ 
+              textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'
+            }}
+          >
+            Book an Appointment
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-white/95 max-w-3xl mx-auto leading-relaxed font-medium mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+            style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
+          >
+            Schedule your visit with our dental experts. We're here to give you the best care possible.
+          </motion.p>
+          <motion.div 
+            className="mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button 
+              size="lg" 
+              className="bg-white text-primary-600 hover:bg-white/90"
+              onClick={() => {
+                const formSection = document.getElementById('appointment-form');
+                formSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
-              <Button 
-                size="lg" 
-                className="bg-white text-primary-600 hover:bg-white/90"
-                onClick={() => {
-                  const formSection = document.getElementById('appointment-form');
-                  formSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Book Now <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-          </ScrollAnimation>
+              Book Now <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
         </div>
       </section>
 
