@@ -76,14 +76,15 @@ const Contact = () => {
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
+            backgroundColor: 'rgba(60, 40, 130, 0.8)',
             backgroundImage: `
               linear-gradient(
                 to right,
-                rgba(60, 40, 130, 0.7) 0%,
-                rgba(80, 50, 150, 0.6) 50%,
-                rgba(60, 40, 130, 0.7) 100%
+                rgba(60, 40, 130, 0.5) 0%,
+                rgba(80, 50, 150, 0.5) 50%,
+                rgba(60, 40, 130, 0.5) 100%
               ),
-              url('https://png.pngtree.com/background/20230618/original/pngtree-background-in-purple-3d-rendered-interface-for-mobile-phone-picture-image_3709466.jpg')
+              url('https://image.slidesdocs.com/responsive-images/background/rendered-viber-icons-on-a-mobile-phone-in-3d-powerpoint-background_29ebdad99c__655_368.jpg')
             `,
             backgroundSize: 'cover',
             backgroundPosition: 'center',

@@ -167,7 +167,7 @@ const Index = () => {
                 }`
               }</style>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/70 via-purple-900/70 to-indigo-900/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/50 via-purple-900/50 to-indigo-900/50" />
           </div>
         ))}
         

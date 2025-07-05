@@ -54,25 +54,19 @@ const AppointmentPage = () => {
   return (
     <Layout>
       {/* Hero Section with Animated Background */}
-      <section className="relative pt-40 pb-24 -mt-20 overflow-hidden">
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `
-              linear-gradient(
-                to right,
-                rgba(60, 40, 130, 0.7) 0%,
-                rgba(80, 50, 150, 0.6) 50%,
-                rgba(60, 40, 130, 0.7) 100%
-              ),
-              url('https://officechai.com/wp-content/uploads/2021/09/Optimized-appointment-.jpg')
-            `,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            animation: 'float 15s ease-in-out infinite',
-            filter: 'brightness(1.1) contrast(1.1)',
-          }}
-        >
+      <section className="relative pt-32 pb-16 -mt-20 overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('https://officechai.com/wp-content/uploads/2021/09/Optimized-appointment-.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              animation: 'float 15s ease-in-out infinite',
+              filter: 'brightness(1.1) contrast(1.1)',
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-violet-900/20"></div>
           <style>{
             `@keyframes float {
               0% {
@@ -145,7 +139,7 @@ const AppointmentPage = () => {
       </section>
 
       {/* Appointment Form Section */}
-      <section id="appointment-form" className="py-20 bg-gray-50">
+      <section id="appointment-form" className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div 
@@ -157,18 +151,18 @@ const AppointmentPage = () => {
             >
               <div className="md:flex">
                 {/* Form Section */}
-                <div className="w-full p-8">
+                <div className="w-full p-6">
                   <ScrollAnimation>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">Schedule Your Visit</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-3">Schedule Your Visit</h2>
                   </ScrollAnimation>
                   <ScrollAnimation delay={0.1}>
-                    <p className="text-gray-600 mb-8">
+                    <p className="text-gray-600 mb-6">
                       Fill out the form below and we'll get back to you to confirm your appointment.
                     </p>
                   </ScrollAnimation>
                   
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Name Field */}
                       <StaggerItem>
                         <motion.div 

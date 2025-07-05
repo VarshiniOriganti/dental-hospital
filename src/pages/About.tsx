@@ -54,12 +54,13 @@ const About = () => {
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
+            backgroundColor: 'rgba(60, 40, 130, 0.8)',
             backgroundImage: `
               linear-gradient(
                 to right,
-                rgba(60, 40, 130, 0.7) 0%,
-                rgba(80, 50, 150, 0.6) 50%,
-                rgba(60, 40, 130, 0.7) 100%
+                rgba(60, 40, 130, 0.5) 0%,
+                rgba(80, 50, 150, 0.5) 50%,
+                rgba(60, 40, 130, 0.5) 100%
               ),
               url('https://png.pngtree.com/thumb_back/fw800/background/20230616/pngtree-vortex-and-herb-encircle-dental-care-and-3d-dirty-teeth-render-image_3616367.jpg')
             `,
